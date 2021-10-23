@@ -14,8 +14,6 @@ class CustomWorld extends World {
 
   async getElement(locator) {
     const element = await this.driver.wait(until.elementLocated(locator), timeout, `Timed out after ${timeout} ms`, 3000)
-    //await this.driver.executeScript('arguments[0].scrollIntoView()', element)
-    //return await this.driver.wait(until.elementLocated(locator), timeout, `Timed out after ${timeout} ms`, 3000)
     return element;
   }
 
@@ -26,6 +24,11 @@ class CustomWorld extends World {
   async getElements(locator) {
     const elements = await this.driver.wait(until.elementsLocated(locator), timeout, `Timed out after ${timeout} ms`, 5000)
     return elements
+  }
+
+  async scrollElementIntoView(locator) {
+    const element = await this.driver.wait(until.elementLocated(locator), timeout, `Timed out after ${timeout} ms`, 3000)
+    await this.driver.executeScript('arguments[0].scrollIntoView()', element)
   }
 
   async getMonthNumber(monthString){

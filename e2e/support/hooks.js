@@ -4,22 +4,22 @@ Before(function() {
   return this.driver.manage().window().maximize();
 });
 
-AfterStep( function () {
-  var world = this;
-  return this.driver.takeScreenshot().then(function(screenShot) {
-    world.attach(screenShot, 'base64:image/png');
-  });
-});
+// AfterStep( function () {
+//   var world = this;
+//   return this.driver.takeScreenshot().then(function(screenShot) {
+//     world.attach(screenShot, 'base64:image/png');
+//   });
+// });
 
 After(function(testCase) {
-  // var world = this;
-  // if (testCase.result.status === Status.FAILED) {
-  //   return this.driver.takeScreenshot().then(function(screenShot) {
-  //     world.attach(screenShot, 'base64:image/png');
-  //   });
-  // }
+  var world = this;
+  if (testCase.result.status === Status.FAILED) {
+    return this.driver.takeScreenshot().then(function(screenShot) {
+      world.attach(screenShot, 'base64:image/png');
+    });
+  }
   try {
-    //return this.driver.quit();
+    return this.driver.quit();
   } catch(e) {
     console.log('Failed to close driver due: ' + e.message);
   }

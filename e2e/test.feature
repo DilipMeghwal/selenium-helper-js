@@ -1,9 +1,13 @@
 Feature: test the feature
 
     @test
-    Scenario: Scenario name
-        Given user is on home page
-        When user select who you are <YouAre>
-        And user select for who <ForWho>
-        And user select the solution <WhichSolution>
-        And user click on search button on home page
+    Scenario Outline: Scenario name
+        Given user is on parabank home page
+        When user enter username as <username>
+        And user enter password as <password>
+        And user click on log in
+        Then verify user is able to login in successfully
+
+        Examples:
+            | username | password |
+            | "demo"   | "demo"   |
