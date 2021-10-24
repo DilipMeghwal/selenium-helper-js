@@ -4,12 +4,14 @@ const { timeout, baseURL } = require('../config');
 require("chromedriver");
 
 class CustomWorld extends World {
+  // driver setup
+  driver = new Builder().forBrowser('chrome').build();
   constructor(options) {
     super(options)
-    // driver setup
-    const capabilities = Capabilities.chrome();
-    capabilities.set('chromeOptions', { "w3c": false });
-    this.driver = new Builder().withCapabilities(capabilities).build();
+    // // driver setup
+    // const capabilities = Capabilities.chrome();
+    // capabilities.set('chromeOptions', { "w3c": false });
+    // this.driver = new Builder().withCapabilities(capabilities).build();
   }
 
   async getElement(locator) {

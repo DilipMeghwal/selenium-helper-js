@@ -3,11 +3,13 @@ var reporter = require('cucumber-html-reporter');
 
 var options = {
         theme: 'bootstrap',
-        jsonFile: 'output/cucumber_report.json',
-        output: 'output/cucumber_report.html',
+        jsonFile: 'output/reports/cucumber_report.json',
+        output: 'output/reports/cucumber_report.html',
         reportSuiteAsScenarios: true,
         scenarioTimestamp: true,
         launchReport: true,
+        brandTitle: "e2e tests",
+        storeScreenshots: true,
         metadata: {
             "App Version":"0.3.2",
             "Test Environment": "STAGING",
