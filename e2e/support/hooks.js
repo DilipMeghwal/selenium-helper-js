@@ -1,6 +1,8 @@
 const { Before, After, Status, AfterStep } = require('@cucumber/cucumber');
 
 Before(function () {
+  pageManager = this.getPageManager()
+  //utils = this.getUtils()
   return this.driver.manage().window().maximize();
 });
 

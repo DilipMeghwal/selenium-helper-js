@@ -1,43 +1,35 @@
-const { Given, When, And, Then } = require('@cucumber/cucumber');
-const { By, until } = require('selenium-webdriver');
-const { expect, assert } = require('chai');
-const { timeout } = require('../config');
-const homePage = require('../pages/homePage')
-const accountServicesPage = require('../pages/accountServicesPage')
+const { Given, When, Then } = require('@cucumber/cucumber');
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
+chai.use(chaiAsPromised);
+const assert = chai.assert
+const expect = chai.expect
+chai.should();
 
-
-Given('user is on parabank home page', function () {
-    this.visitHomePage()
-    this.getElements(homePage.username_txtbox).then(element => {
-        console.log(`length : ${element.length}`)
-        expect(element.length, "usrname textbox to be visible").to.be.eq(1)
-    });
+Given('user is on parabank home page', function (done) {
+    pageManager.then(pm => {
+        pm.getHomePage().openHomePage().then(flag => {
+            expect(Promise.resolve(flag, "Home Page opened successfully")).to.eventually.equal(true).notify(done)
+        })
+    })
 });
-When('user enter username as {string}', function (username) {
-    this.getElement(homePage.username_txtbox).then(element => element.clear())
-    this.getElement(homePage.username_txtbox).then(element => element.sendKeys(username))
+When('user enter username as {string}', function (username, done) {
+    pageManager.then(pm => {
+        pm.getHomePage().enterUsername(username).then(text => {
+            expect(Promise.resolve(text, "Home Page opened successfully")).to.eventually.equal("true").notify(done)
+        })
+    })
 });
 
 When('user enter password as {string}', function (password) {
-    this.getElements(homePage.username_txtbox).then(element => {
-        console.log(`username text : ${element.getText()}`)
-        expect(element.getText(), "username should be entered").to.be.not("")
-    });
-    this.getElement(homePage.password_txtbox).then(element => element.clear())
-    this.getElement(homePage.password_txtbox).then(element => element.sendKeys(password))
+    pageManager.then(pm => pm.getHomePage().enterPassword(password))
+
 });
 
 When('user click on log in', function () {
-    this.getElements(homePage.password_txtbox).then(element => {
-        console.log(`password text : ${element.getText()}`)
-        expect(element.getText(), "password should be entered").to.be.not("")
-    });
-    this.getElement(homePage.logIn_btn).then(element => element.click())
+    pageManager.then(pm => pm.getHomePage().clickOnLoginButton())
 });
 
 Then('verify user is able to login in successfully', function () {
-    this.getElements(accountServicesPage.logOut_btn).then(element => {
-        console.log(`length : ${element.length}`)
-        expect(element.length, "logout button to be visisble").to.be.eq(2)
-    })
+    pageManager.then(pm => pm.getAccountServicesPage().verifyUserLoggedIn())
 });

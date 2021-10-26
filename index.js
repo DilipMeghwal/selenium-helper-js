@@ -7,16 +7,16 @@ var options = {
         output: 'output/reports/cucumber_report.html',
         reportSuiteAsScenarios: true,
         scenarioTimestamp: true,
-        launchReport: true,
+        launchReport: false,
         brandTitle: "e2e tests",
         storeScreenshots: true,
         metadata: {
-            "App Version":"0.3.2",
-            "Test Environment": "STAGING",
-            "Browser": "Chrome  54.0.2840.98",
+            "App Version":"1.0.0",
+            "Test Environment": "Testing",
+            "Browser": "Version 95.0.4638.54 ",
             "Platform": "Windows 10",
             "Parallel": "Scenarios",
-            "Executed": "Remote"
+            "Executed": "Local"
         }
     };
 

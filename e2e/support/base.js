@@ -1,6 +1,9 @@
 const { Capabilities, Builder, until, seleniumWebdriver } = require('selenium-webdriver');
 const { setWorldConstructor, setDefaultTimeout, World } = require('@cucumber/cucumber');
-const { timeout, baseURL } = require('../config');
+const { timeout } = require('../config');
+const PageManager = require('../support/pageManager')
+const Utils = require('./utils')
+
 require("chromedriver");
 
 class CustomWorld extends World {
@@ -14,28 +17,12 @@ class CustomWorld extends World {
     // this.driver = new Builder().withCapabilities(capabilities).build();
   }
 
-  async getElement(locator) {
-    const element = await this.driver.wait(until.elementLocated(locator), timeout, `Timed out after ${timeout} ms`, 3000)
-    return element;
+  async getPageManager(){
+    return new PageManager(this.driver)
   }
 
-  async visitHomePage() {
-    this.driver.get(baseURL)
-  }
-
-  async getElements(locator) {
-    const elements = await this.driver.wait(until.elementsLocated(locator), timeout, `Timed out after ${timeout} ms`, 5000)
-    return elements
-  }
-
-  async scrollElementIntoView(locator) {
-    const element = await this.driver.wait(until.elementLocated(locator), timeout, `Timed out after ${timeout} ms`, 3000)
-    await this.driver.executeScript('arguments[0].scrollIntoView()', element)
-  }
-
-  async getMonthNumber(monthString){
-    let months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-    return months.indexOf(monthString)
+  async getUtils(){
+    return new Utils(this.driver)
   }
 }
 

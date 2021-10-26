@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clean:reports": "node ./dirSetup.js",
+    "pretest": "npm run clean:reports",
     "test": "cucumber-js e2e/ -f json:output/reports/cucumber_report.json",
     "posttest": "node index.js"
   },
@@ -20,12 +22,13 @@
   "homepage": "https://github.com/DilipMeghwal/selenium-helper-js#readme",
   "devDependencies": {
     "@cucumber/cucumber": "^7.3.1",
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
     "chromedriver": "^94.0.0",
     "cucumber-html-reporter": "^5.5.0",
-    "selenium-webdriver": "^4.0.0-rc-2",
-    "chai": "^4.3.4",
     "fs-extra": "^10.0.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "selenium-webdriver": "^4.0.0"
   },
   "dependencies": {}
 }
